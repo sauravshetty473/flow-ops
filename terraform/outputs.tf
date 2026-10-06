@@ -29,3 +29,7 @@ output "transaction_processor_ecr_repository_url" {
 output "github_actions_role_arn" {
   value = aws_iam_role.github_actions.arn
 }
+
+output "backend_api_url" {
+  value = aws_apigatewayv2_api.backend.api_endpoint
+}

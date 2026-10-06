@@ -1,3 +1,16 @@
 flowops:
   sqs:
     transaction-queue-url: ${FLOWOPS_SQS_TRANSACTION_QUEUE_URL}
+
+spring:
+  application:
+    name: flowops
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+
+server:
+  port: 8080
