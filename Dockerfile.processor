@@ -4,4 +4,4 @@ COPY transaction-processor/target/classes ${LAMBDA_TASK_ROOT}
 
 COPY transaction-processor/target/dependency/* ${LAMBDA_TASK_ROOT}/lib/
 
-CMD ["com.flowops.transactionprocessor.lambda.TransactionProcessorLambdaHandler::handleRequest"]
+CMD ["com.flowops.transactionprocessor.consumer.TransactionProcessorLambdaHandler::handleRequest"]
