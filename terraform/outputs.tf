@@ -33,3 +33,7 @@ output "github_actions_role_arn" {
 output "backend_api_url" {
   value = aws_apigatewayv2_api.backend.api_endpoint
 }
+
+output "transaction_processor_lambda_name" {
+  value = aws_lambda_function.transaction_processor.function_name
+}

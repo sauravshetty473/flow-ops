@@ -4,6 +4,7 @@ import com.flowops.transactionprocessor.processor.TransactionEventProcessor;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
@@ -13,6 +14,7 @@ import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 @Component
 @AllArgsConstructor
 @Slf4j
+@Profile("!lambda")
 public class TransactionEventConsumer {
 
     private final SqsClient sqsClient;

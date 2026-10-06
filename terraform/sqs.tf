@@ -12,7 +12,7 @@ resource "aws_sqs_queue" "transaction_dlq" {
 resource "aws_sqs_queue" "transactions" {
   name = "${var.project_name}-transactions"
 
-  visibility_timeout_seconds = 60
+  visibility_timeout_seconds = 360
 
   message_retention_seconds = 345600 # 4 days
 

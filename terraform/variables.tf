@@ -13,5 +13,5 @@ variable "project_name" {
 variable "backend_image_tag" {
   description = "ECR tag used for the backend Lambda image"
   type        = string
-  default     = "0.0.1-SNAPSHOT"
+  default     = "latest"
 }

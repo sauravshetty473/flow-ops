@@ -62,7 +62,7 @@ jobs:
             -f Dockerfile.backend \
             -t "$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$VERSION" \
             -t "$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$GIT_SHA" \
-            -t "latest" \
+            -t "$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest" \
             .
 
       - name: Build transaction processor image
@@ -75,7 +75,7 @@ jobs:
             -f Dockerfile.processor \
             -t "$ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:$VERSION" \
             -t "$ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:$GIT_SHA" \
-            -t "latest" \
+            -t "$ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:latest" \
             .
 
       - name: Push backend image
@@ -86,6 +86,7 @@ jobs:
         run: |
           docker push "$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$VERSION"
           docker push "$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$GIT_SHA"
+          docker push "$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest"
 
       - name: Push transaction processor image
         env:
@@ -95,17 +96,18 @@ jobs:
         run: |
           docker push "$ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:$VERSION"
           docker push "$ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:$GIT_SHA"
-
-      - name: Update backend Lambda
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        run: |
-          aws lambda update-function-code \
-            --function-name flowops-backend \
-            --image-uri "$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest"
-
-      - name: Wait for Lambda update
-        run: |
-          aws lambda wait function-updated-v2 \
-            --function-name flowops-backend \
-            --region "$AWS_REGION"
+          docker push "$ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:latest"
+#
+#      - name: Update backend Lambda
+#        env:
+#          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#        run: |
+#          aws lambda update-function-code \
+#            --function-name flowops-backend \
+#            --image-uri "$ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:latest"
+#
+#      - name: Wait for Lambda update
+#        run: |
+#          aws lambda wait function-updated-v2 \
+#            --function-name flowops-backend \
+#            --region "$AWS_REGION"
