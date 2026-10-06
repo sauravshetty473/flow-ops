@@ -79,6 +79,12 @@ resource "aws_iam_role_policy" "lambda_transaction_processor" {
   })
 }
 
+data "aws_ecr_image" "processor" {
+  repository_name = aws_ecr_repository.transaction_processor.name
+  image_tag       = var.processor_image_tag
+}
+
+
 resource "aws_lambda_function" "transaction_processor" {
   function_name = "${var.project_name}-transaction-processor"
 
@@ -86,7 +92,7 @@ resource "aws_lambda_function" "transaction_processor" {
 
   package_type = "Image"
 
-  image_uri = "${aws_ecr_repository.transaction_processor.repository_url}:latest"
+  image_uri = "${aws_ecr_repository.transaction_processor.repository_url}@${data.aws_ecr_image.processor.image_digest}"
 
   architectures = ["x86_64"]
 
