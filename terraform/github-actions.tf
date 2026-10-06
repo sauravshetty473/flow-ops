@@ -30,7 +30,10 @@ resource "aws_iam_role" "github_actions" {
           }
 
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:sauravshetty473/flow-ops:ref:refs/heads/master"
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:sauravshetty473/flow-ops:ref:refs/heads/master",
+              "repo:sauravshetty473@*/flow-ops@*:ref:refs/heads/master"
+            ]
           }
         }
       }
