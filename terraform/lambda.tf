@@ -101,12 +101,6 @@ resource "aws_lambda_function" "backend" {
   memory_size = 1024
   timeout     = 30
 
-  lifecycle {
-    ignore_changes = [
-      image_uri
-    ]
-  }
-
   environment {
     variables = {
       SPRING_PROFILES_ACTIVE = "aws"

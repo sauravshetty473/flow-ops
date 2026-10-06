@@ -99,15 +99,17 @@ resource "aws_lambda_function" "transaction_processor" {
   memory_size = 1024
   timeout     = 60
 
-  lifecycle {
-    ignore_changes = [
-      image_uri
-    ]
-  }
-
   tags = {
     Project   = var.project_name
     ManagedBy = "Terraform"
+  }
+
+  environment {
+    variables = {
+      SPRING_PROFILES_ACTIVE = "aws"
+
+      FLOWOPS_SQS_TRANSACTION_QUEUE_URL = aws_sqs_queue.transactions.url
+    }
   }
 
   depends_on = [

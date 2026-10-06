@@ -6,7 +6,6 @@ import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import com.amazonaws.services.lambda.runtime.events.SQSBatchResponse;
 import com.flowops.transactionprocessor.TransactionProcessorApplication;
 import com.flowops.transactionprocessor.processor.TransactionEventProcessor;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
