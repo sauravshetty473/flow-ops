@@ -1,6 +1,6 @@
-package com.flowops.backend.repository;
+package com.flowops.common.repository;
 
-import com.flowops.backend.model.Transaction;
+import com.flowops.common.model.Transaction;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;

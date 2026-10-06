@@ -1,0 +1,3 @@
+flowops:
+  sqs:
+    transaction-queue-url: test-queue-url

@@ -1,4 +1,4 @@
-package com.flowops.backend.config;
+package com.flowops.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,0 +1,96 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_BACKEND_REPOSITORY: flowops-backend
+  ECR_PROCESSOR_REPOSITORY: flowops-transaction-processor
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Verify AWS identity
+        run: aws sts get-caller-identity
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Maven project and Docker images
+        run: mvn --batch-mode clean install
+
+      - name: Read Maven version
+        id: version
+        run: |
+          VERSION=$(mvn --batch-mode help:evaluate \
+            -Dexpression=project.version \
+            -q -DforceStdout)
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Maven version: $VERSION"
+
+      - name: Tag Docker images
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          VERSION: ${{ steps.version.outputs.version }}
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          docker tag \
+            flowops-backend:$VERSION \
+            $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$VERSION
+
+          docker tag \
+            flowops-backend:$VERSION \
+            $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$GIT_SHA
+
+          docker tag \
+            flowops-transaction-processor:$VERSION \
+            $ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:$VERSION
+
+          docker tag \
+            flowops-transaction-processor:$VERSION \
+            $ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:$GIT_SHA
+
+      - name: Push Docker images
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          VERSION: ${{ steps.version.outputs.version }}
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          docker push \
+            $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$VERSION
+
+          docker push \
+            $ECR_REGISTRY/$ECR_BACKEND_REPOSITORY:$GIT_SHA
+
+          docker push \
+            $ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:$VERSION
+
+          docker push \
+            $ECR_REGISTRY/$ECR_PROCESSOR_REPOSITORY:$GIT_SHA

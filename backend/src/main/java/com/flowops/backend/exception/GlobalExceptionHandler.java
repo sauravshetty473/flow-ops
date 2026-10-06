@@ -1,6 +1,7 @@
 package com.flowops.backend.exception;
 
 import com.flowops.backend.dto.ErrorResponse;
+import com.flowops.common.exception.TransactionNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

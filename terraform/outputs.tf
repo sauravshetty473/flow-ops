@@ -17,3 +17,15 @@ output "sqs_dlq_url" {
   description = "FlowOps transaction DLQ URL"
   value       = aws_sqs_queue.transaction_dlq.url
 }
+
+output "backend_ecr_repository_url" {
+  value = aws_ecr_repository.backend.repository_url
+}
+
+output "transaction_processor_ecr_repository_url" {
+  value = aws_ecr_repository.transaction_processor.repository_url
+}
+
+output "github_actions_role_arn" {
+  value = aws_iam_role.github_actions.arn
+}

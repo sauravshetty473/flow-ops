@@ -1,6 +1,6 @@
 package com.flowops.backend.dto;
 
-import com.flowops.backend.model.TransactionStatus;
+import com.flowops.common.model.TransactionStatus;
 import lombok.Builder;
 
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package com.flowops.backend.exception;
+package com.flowops.common.exception;
 
 public class TransactionAlreadyExistsException {
 }

@@ -1,8 +1,8 @@
-package com.flowops.backend.model;
+package com.flowops.common.model;
 
 public enum TransactionStatus {
     OPEN,
-    PROCESSED,
+    PROCESSING,
     COMPLETED,
     FAILED
 }

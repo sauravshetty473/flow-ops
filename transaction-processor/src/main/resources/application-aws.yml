@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: flowops-worker
+
+flowops:
+  sqs:
+    transaction-queue-url: ${FLOWOPS_SQS_TRANSACTION_QUEUE_URL}

@@ -1,6 +1,6 @@
-package com.flowops.backend.repository;
+package com.flowops.common.repository;
 
-import com.flowops.backend.model.Transaction;
+import com.flowops.common.model.Transaction;
 
 import java.util.List;
 import java.util.Optional;

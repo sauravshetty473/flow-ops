@@ -1,4 +1,4 @@
-package com.flowops.backend.model;
+package com.flowops.common.model;
 
 import jakarta.persistence.*;
 import lombok.*;

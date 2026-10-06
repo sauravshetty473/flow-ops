@@ -2,10 +2,10 @@ package com.flowops.backend.service;
 
 import com.flowops.backend.dto.CreateTransactionRequest;
 import com.flowops.backend.dto.TransactionResponse;
-import com.flowops.backend.exception.TransactionNotFoundException;
-import com.flowops.backend.model.Transaction;
-import com.flowops.backend.model.TransactionStatus;
-import com.flowops.backend.repository.TransactionRepository;
+import com.flowops.common.exception.TransactionNotFoundException;
+import com.flowops.common.model.Transaction;
+import com.flowops.common.model.TransactionStatus;
+import com.flowops.common.repository.TransactionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

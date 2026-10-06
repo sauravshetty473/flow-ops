@@ -2,8 +2,8 @@ package com.flowops.backend.controller;
 
 import com.flowops.backend.dto.CreateTransactionRequest;
 import com.flowops.backend.dto.TransactionResponse;
-import com.flowops.backend.exception.TransactionNotFoundException;
 import com.flowops.backend.service.TransactionService;
+import com.flowops.common.exception.TransactionNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
