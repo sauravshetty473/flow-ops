@@ -94,7 +94,7 @@ resource "aws_lambda_function" "backend" {
 
   package_type = "Image"
 
-  image_uri = "${aws_ecr_repository.backend.repository_url}:latest"
+  image_uri = "${aws_ecr_repository.backend.repository_url}@${data.aws_ecr_image.backend.image_digest}"
 
   architectures = ["x86_64"]
 
