@@ -1,7 +1,7 @@
-FROM eclipse-temurin:21-jre
+FROM public.ecr.aws/lambda/java:21
 
-WORKDIR /app
+COPY transaction-processor/target/classes ${LAMBDA_TASK_ROOT}
 
-COPY transaction-processor/target/*.jar app.jar
+COPY transaction-processor/target/dependency/* ${LAMBDA_TASK_ROOT}/lib/
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["com.flowops.transactionprocessor.lambda.TransactionProcessorLambdaHandler::handleRequest"]
