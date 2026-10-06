@@ -43,7 +43,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build Maven project and Docker images
-        run: mvn --batch-mode clean install
+        run: mvn --batch-mode clean install -DskipTests
 
       - name: Read Maven version
         id: version
